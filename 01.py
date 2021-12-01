@@ -46,5 +46,68 @@ def main_v1():
     return contador
 
 
+
+def addArray(array):
+
+    total=0
+
+    for i in range(3):
+
+        total+=int(array[i])
+
+    return total
+
+
+
+def main_v2():
+    
+    archivo=lectura()
+    contador=0
+    
+    # we supposed that the input cant have less than 3 lines
+
+    array=[]
+
+    for i in range(3):
+
+        linea=archivo.readline()
+        array.append(int(linea))
+
+
+    last=addArray(array)
+
+    while True:
+
+        linea=archivo.readline()
+
+        if not linea:
+
+            break
+
+        array.pop(0)
+        array.append(int(linea))
+
+        aux=addArray(array)
+
+        print(aux)
+
+        if(aux>last):
+
+            contador+=1
+        
+
+        last=addArray(array)
+
+
+    return contador
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
-    print(main_v1())
+    print(f"part 1 : {main_v1()}" , f"part 2 : {main_v2()}")
+    
