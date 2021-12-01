@@ -87,11 +87,7 @@ def main_v2():
         array.pop(0)
         array.append(int(linea))
 
-        aux=addArray(array)
-
-        print(aux)
-
-        if(aux>last):
+        if(addArray(array)>last):
 
             contador+=1
         
@@ -100,11 +96,6 @@ def main_v2():
 
 
     return contador
-
-
-
-
-
 
 
 
