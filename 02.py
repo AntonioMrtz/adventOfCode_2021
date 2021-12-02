@@ -53,9 +53,46 @@ def main_v1():
 
 
 def main_v2():
-    pass
+    
+    archivo=lectura()
+
+    x=0     # horizontal
+    y=0     # depth
+    aim=0
+
+
+
+    while True:
+
+
+        linea=archivo.readline()
+
+        if not linea:
+            break
+
+        #implementacion
+
+        steps=int(linea.split()[1])
+
+        if linea.startswith("f"):
+
+            x+=steps
+            y+= steps*aim
+
+
+        elif linea.startswith("u"):
+        
+            aim-=steps
+
+        elif linea.startswith("d"):
+
+            aim+=steps
+
+    return x*y      
+
+
     
 if __name__ == '__main__':
-    print(f" part 1: {main_v1()}")
+    print(f"part 1: {main_v1()}"+f" \npart 2: {main_v2()}")
 
 
