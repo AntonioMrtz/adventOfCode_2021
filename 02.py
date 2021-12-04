@@ -7,92 +7,81 @@ Created on 02 december 2021
 
 def lectura():
 
-    archivo=open("input02.txt")
+    archivo = open("input02.txt")
     # archivo=open("prueba.txt")
     return archivo
 
+
 def main_v1():
 
-    archivo=lectura()
-    
-    x=0     #horizontal
-    y=0     #vertical
+    archivo = lectura()
 
+    x = 0  # horizontal
+    y = 0  # vertical
 
     while True:
 
-        linea=archivo.readline()
+        linea = archivo.readline()
 
         if not linea:
             break
 
-        #implementacion
-        
-        steps=int(linea.split()[1])
+        # implementacion
+
+        steps = int(linea.split()[1])
 
         if linea.startswith("f"):
-            #forward
+            # forward
 
-            x+=steps
+            x += steps
 
         elif linea.startswith("u"):
-            #up
+            # up
 
-            y-=steps
-
+            y -= steps
 
         elif linea.startswith("d"):
-            #down
+            # down
 
-            y+=steps
-
-
+            y += steps
 
     return x*y
 
 
-
 def main_v2():
-    
-    archivo=lectura()
 
-    x=0     # horizontal
-    y=0     # depth
-    aim=0
+    archivo = lectura()
 
-
+    x = 0     # horizontal
+    y = 0     # depth
+    aim = 0
 
     while True:
 
-
-        linea=archivo.readline()
+        linea = archivo.readline()
 
         if not linea:
             break
 
-        #implementacion
+        # implementacion
 
-        steps=int(linea.split()[1])
+        steps = int(linea.split()[1])
 
         if linea.startswith("f"):
 
-            x+=steps
-            y+= steps*aim
-
+            x += steps
+            y += steps*aim
 
         elif linea.startswith("u"):
-        
-            aim-=steps
+
+            aim -= steps
 
         elif linea.startswith("d"):
 
-            aim+=steps
+            aim += steps
 
-    return x*y      
+    return x*y
 
 
-    
 if __name__ == '__main__':
     print(f"part 1: {main_v1()}"+f" \npart 2: {main_v2()}")
-
-
