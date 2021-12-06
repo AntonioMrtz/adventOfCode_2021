@@ -4,6 +4,8 @@ Created on ____ december 2021
 @author: Antonio Martínez Fernández
 '''
 
+#TODO PONER FECHA INICIO
+
 def main_v1():
     pass
 
