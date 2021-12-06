@@ -5,6 +5,7 @@ Created on 05 december 2021
 '''
 
 import re
+from collections import defaultdict
 
 PNUMBER = r'\b\d+\b'
 re.compile(PNUMBER)
@@ -118,8 +119,69 @@ def main_v1():
                 #print(f"\n{database[j]} {numero}")
                 return not_marked_cells(database[j], numero)
 
-    return 0
+
+def main_v2():
+
+    archivo = open("input04.txt")
+    # archivo=open("prueba.txt")
+
+    # stores the sequence of numbers
+    numbers = re.findall(PNUMBER, archivo.readline())
+    archivo.readline()
+
+    database = []
+    matrix = []
+
+    control = 0
+
+    # we start to read from the first matrix
+
+    while True:
+
+        linea = archivo.readline()
+
+        if not linea:
+            database.append(matrix)
+            break
+
+        if(linea == "\n"):
+
+            database.append(matrix)
+            matrix = []
+
+        elif linea != "\n":
+            aux = re.findall(PNUMBER, linea)
+            matrix.append(aux)
+
+    # change x if its the number value
+
+    array = defaultdict(lambda: "0")
+    counter = 0
+
+    for numero in numbers:
+
+        for j in range(len(database)):
+            # for matrix in database:
+
+            for k in range(len(database[j])):
+                # for line in matrix:
+
+                for y in range(len(database[j][k])):
+                    # for cell in line:
+
+                    if database[j][k][y] == numero:
+
+                        database[j][k][y] = "x"
+
+            if array[j] != 1 and is_accepted(database[j]):
+
+                if(counter+1 == len(database)):
+
+                    return not_marked_cells(database[j], numero)
+
+                counter += 1
+                array[j] = 1
 
 
 if __name__ == '__main__':
-    print(f"part 1 : {main_v1()}")
+    print(f"part 1 : {main_v1()} \npart 2 : {main_v2()}")
