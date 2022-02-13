@@ -1,6 +1,8 @@
 const { start } = require("repl");
 
 
+//! NO ESTA MUY OPTIMIZADO , SE LE PUEDE ECHAR UN OJO
+
 class Coordenates {
 
     constructor(x, y) {
@@ -55,6 +57,42 @@ function addValue(coordenate) {
 }
 
 
+function checkIfInDiagonal(coordenate) {
+
+    for (let i = 0; i < entriesDiagonal.length; i++) {
+
+        if (entriesDiagonal[i].x == coordenate.x && entriesDiagonal[i].y == coordenate.y) {
+
+            return entriesDiagonal[i];
+
+        }
+
+
+    }
+
+    return false;
+
+}
+
+
+function addValueDiagonal(coordenate) {
+
+    for (let i = 0; i < entriesDiagonal.length; i++) {
+
+        if (entriesDiagonal[i].x == coordenate.x && entriesDiagonal[i].y == coordenate.y) {
+
+            entriesDiagonal[i].add_value();
+        }
+
+
+    }
+
+
+}
+
+///
+
+
 
 function readFile() {
     let fs = require("fs");
@@ -85,8 +123,8 @@ function getEntries(line) {
     let end_x = end[0];
     let end_y = end[1];
 
-    fillEntries(parseInt(start_x), parseInt(start_y), parseInt(end_x), parseInt(end_y));
-
+    //! PONER DE NUEVO fillEntries(parseInt(start_x), parseInt(start_y), parseInt(end_x), parseInt(end_y));
+    fillEntriesDiagonal(parseInt(start_x), parseInt(start_y), parseInt(end_x), parseInt(end_y));
 
 }
 
@@ -215,6 +253,262 @@ function fillEntries(start_x, start_y, end_x, end_y) {
 
 }
 
+function fillEntriesDiagonal(start_x, start_y, end_x, end_y) {
+
+    if (start_x == end_x) {
+
+        if (start_y > end_y) {
+
+            for (let i = end_y; i <= start_y; i++) {
+
+
+                let obj=checkIfInDiagonal(new Coordenates(start_x, i));
+
+                if (obj!=false) {
+
+                    addValueDiagonal(obj);
+
+                }
+
+                else {
+
+                    entriesDiagonal.push(new Coordenates(start_x,i));
+
+                }
+
+            }
+
+
+        }
+
+        else {
+
+            for (let i = start_y; i <= end_y; i++) {
+
+
+                let obj=checkIfInDiagonal(new Coordenates(start_x, i));
+
+                if (obj!=false) {
+
+                    addValueDiagonal(obj);
+
+                }
+
+                else {
+
+                    entriesDiagonal.push(new Coordenates(start_x,i));
+
+                }
+
+            }
+
+
+
+
+            
+
+
+        }
+
+    }
+
+    else if (start_y == end_y) {
+
+        if (start_x > end_x) {
+
+            for (let i = end_x; i <= start_x; i++) {
+
+                let obj=checkIfInDiagonal(new Coordenates(i, start_y));
+
+                if (obj!=false) {
+
+                    addValueDiagonal(obj);
+
+                }
+
+                else {
+
+                    entriesDiagonal.push(new Coordenates(i,start_y));
+
+                }
+
+            }
+
+
+        }
+
+        else {
+
+
+            for (let i = start_x; i <= end_x; i++) {
+
+               
+
+                    let obj=checkIfInDiagonal(new Coordenates(i, start_y));
+    
+                    if (obj!=false) {
+    
+                        addValueDiagonal(obj);
+    
+                    }
+    
+                    else {
+    
+                        entriesDiagonal.push(new Coordenates(i,start_y));
+    
+                    }
+    
+                
+
+
+            }
+
+
+        }
+
+    }
+    else if(start_x<end_x && start_y<end_y){
+
+
+        //DIAGONAL IZQ ARRIBA
+
+        let x=end_x;
+        let y=end_y;
+
+        
+        while (x>=start_x){
+            
+            let obj=checkIfInDiagonal(new Coordenates(x,y));
+
+            if (obj!=false) {
+    
+                addValueDiagonal(obj);
+
+            }
+
+            else {
+
+                entriesDiagonal.push(new Coordenates(x,y));
+
+            }
+
+            x-=1;
+            y-=1;
+    
+            
+
+
+        }
+
+
+    }
+
+    else if(start_x>end_x && start_y<end_y){
+
+        //DIAGONAL DER ARRIBA
+        let x=end_x;
+        let y=end_y;
+
+        while (x<=start_x){
+
+            
+            let obj=checkIfInDiagonal(new Coordenates(x,y));
+
+            if (obj!=false) {
+    
+                addValueDiagonal(obj);
+
+            }
+
+            else {
+
+                entriesDiagonal.push(new Coordenates(x,y));
+
+            }
+
+            x+=1;
+            y-=1;
+    
+            
+
+
+        }
+
+    }
+
+    else if(start_x<end_x && start_y>end_y){
+
+        //DIAGONAL IZQ ABAJO
+
+
+        let x=end_x;
+        let y=end_y;
+
+        while (y<=start_y){
+
+            
+            let obj=checkIfInDiagonal(new Coordenates(x,y));
+
+            if (obj!=false) {
+    
+                addValueDiagonal(obj);
+
+            }
+
+            else {
+
+                entriesDiagonal.push(new Coordenates(x,y));
+
+            }
+
+            x-=1;
+            y+=1;
+    
+            
+
+
+        }
+
+    }
+
+    else if(start_x>end_x && start_y>end_y){
+
+        //DIAGONAL DER ABAJO
+
+
+        let x=end_x;
+        let y=end_y;
+
+        while (y<=start_y){
+
+            
+            let obj=checkIfInDiagonal(new Coordenates(x,y));
+
+            if (obj!=false) {
+    
+                addValueDiagonal(obj);
+
+            }
+
+            else {
+
+                entriesDiagonal.push(new Coordenates(x,y));
+
+            }
+
+            x+=1;
+            y+=1;
+    
+            
+
+
+        }
+
+
+    }
+
+}
+
 function checkResult() {
 
 
@@ -231,7 +525,25 @@ function checkResult() {
     }
 
 
-    
+    return counter;
+
+}
+
+function checkResultDiagonal() {
+
+
+    let counter = 0;
+
+    for(let i=0;i<entriesDiagonal.length;i++){
+
+        if (entriesDiagonal[i].value >= 2){
+
+            counter += 1;
+
+        }
+
+    }
+
 
     return counter;
 
@@ -241,9 +553,10 @@ function checkResult() {
 
 var array = [];
 var entries = [];
+var entriesDiagonal=[];
 
 
-var result = 0;
+
 
 
 readFile();
@@ -254,7 +567,9 @@ for (let line of array) {
     
 }
 
-//console.log(entries);
+
 console.log(`Part 1: ${checkResult()} \n`);
+console.log(`Part 2: ${checkResultDiagonal()} \n`);
+
 
 
