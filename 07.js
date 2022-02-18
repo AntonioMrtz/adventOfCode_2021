@@ -90,12 +90,11 @@ console.log(`Part 1: ${main_p1()}\n`)
 console.log(`Part 2: ${main_p2()}\n`)
 
 
-
 /* La gracia es :
 
     -> Part 1 : hay que encontrar un valor más cercano para todos = usamos mediana
-
+            * IMPORTA MENOS PASOS TOTALES
 
     -> Part 2 : como cuesta mas cada paso que das , hay que buscar el valor medio para que se muevan lo menos posible
-
+             * IMPORTA MENOS PASOS POR CANGREJO
 */
