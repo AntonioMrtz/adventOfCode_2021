@@ -2,7 +2,6 @@ import { readFileSync } from 'fs';
 
 function readFile(): string {
 
-    //let file = readFileSync('input08.txt', 'utf-8');
     let file = readFileSync('input08.txt', 'utf-8');
 
     return file;
