@@ -2,13 +2,26 @@ import { readFileSync } from 'fs';
 
 function readFile(): string {
 
-    let file = readFileSync('input09.txt', 'utf-8');
+    let file = readFileSync('prueba.txt', 'utf-8');
     //let file = readFileSync('prueba.txt', 'utf-8');
 
     return file;
 
 }
 
+class Coordenates{
+
+    constructor(i:number,j:number){
+
+        this.i=i;
+        this.j=j;
+    }
+
+    i:number;
+    j:number;
+    
+
+}
 
 function checkNearPoints(matrix: number[][], i: number, j: number): number {
 
@@ -47,8 +60,8 @@ function checkNearPoints(matrix: number[][], i: number, j: number): number {
         }
     }
 
-
-
+    let  coordenates:Coordenates=new Coordenates(i,j); 
+    lowestPoints.push(coordenates);
     return currentHeight;
 }
 
@@ -66,6 +79,7 @@ function findLowPoints(matrix: number[][]): number {
 
 
             if (aux != -1) {
+                
                 aux = aux + 1;
                 counter += aux;
             }
@@ -78,7 +92,70 @@ function findLowPoints(matrix: number[][]): number {
     return counter;
 }
 
+
 function mainP1(file: string): number {
+    
+    let data: Array<string> = file.split("\n");
+    
+    var matrix: number[][] = [];
+    
+    
+    let i: number = 0;
+    for (let line of data) {
+
+        line = line.trim();
+
+        let j: number = 0;
+        matrix[i] = [];
+        
+        for (let height of line) {
+            
+            matrix[i][j] = parseInt(height);
+            j++;
+        }
+        
+        i++;
+        
+    }
+    
+    
+    return findLowPoints(matrix);
+    
+    
+}
+
+function findBasin(i:number,j:number){ // returns size of basin
+
+    //* LISTA DONDE HEMOS PASADO YA
+
+
+    //* SI NO HEMOS PASADO ANTERIORMENTE Y !=9 -> CONTADOR+1
+    //* CHECKEAR PROPIA CASILLA Y LANZAR EN 4 DIRECCIONES
+    //* SI 9 ACABAR
+    //* SI BORDE , LANZAR EN DIRECCIONES POSIBLES
+    //* LANZAMOS ESTO DESDE CADA PUNTO BAJO
+
+
+    return 0;
+}
+
+function getBiggestBasins(matrix:Array<number>[]){ 
+
+    let basins:Array<number>=[];
+
+    for(let coordenate of lowestPoints){
+
+        basins.push(findBasin(coordenate.i,coordenate.j));
+
+    }
+
+    basins.sort();
+    return basins[basins.length-1]+basins[basins.length-2]+basins[basins.length-3];
+
+}
+
+
+function mainP2(file: string): number{
 
     let data: Array<string> = file.split("\n");
 
@@ -103,11 +180,13 @@ function mainP1(file: string): number {
 
     }
 
-
-    return findLowPoints(matrix);
-
+    return getBiggestBasins(matrix);
 
 }
 
 const file = readFile();
+
+var visited:Array<Coordenates>=[];
+var lowestPoints:Array<Coordenates>=[];
 console.log(`Part 1: ${mainP1(file)}\n`)
+console.log(`Part 2: ${mainP2(file)}\n`)
